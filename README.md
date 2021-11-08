@@ -1,2 +1,2 @@
 # inventory-management
-# inventory-management
+# Django Inventory Management webapp
