@@ -29,7 +29,7 @@ Your web app is live now on http://127.0.0.1:8000/
 
 4.git init
 
-5.heroku git:remote -a <heroku appname>
+5.heroku git:remote -a "heroku appname"
   
 6.git add .
   
