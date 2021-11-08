@@ -9,7 +9,7 @@ pip install required packages/library
 
 Download code zip file from github repo page and unzip it.
 
-Go to server directory and run:
+Go to project directory and run:
 
 python manage.py makemigrations
 
