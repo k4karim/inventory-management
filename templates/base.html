@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+      <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
+	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     <style>
+         body{
+         margin-top: 60px;
+		 padding: 15px;
+         }
+
+         #resultbox, #searchbox {
+             border-style: double;
+             padding:15px;
+             border-radius: 16px;
+			 }
+        
+
+       .h5, h5 {
+    font-size: 1.6rem;
+}
+.modal-footer {
+    
+    text-align: center !important;
+    
+}
+.container {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    
+}
+.col-lg-8{
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+    
+}
+
+
+
+.table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}	
+        
+
+      </style>
+	  <title>Django Inventory Management Webapp</title> 
+   </head>
+   <body>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+
+		<div class="container">
+		   <div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				  <span class="sr-only">Toggle navigation</span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" id="bigbrand" href="/">Django Inventory Management Webapp</a>
+		   </div>
+
+		   <div class="collapse navbar-collapse" id="navbar">
+
+
+
+			  <ul class="nav navbar-nav navbar-right" id="topNav">
+				 
+				 <li><a href="#" data-toggle="modal" data-target="#add_new_product"><span class="glyphicon glyphicon-plus"></span>Add New Product</a></li>
+				 
+			   </ul>
+		   </div>
+		   <!--/.nav-collapse -->
+		</div>
+	 </nav>
+	 <div class="container">
+        
+            <div class="row">
+
+               <div class="col-lg-2"></div>
+			   <div class="col-lg-8 ">
+
+              
+			      
+	              {% include 'flashmessages.html' %}
+                   
+                  {% block content %}
+                  {% endblock %}
+               </div>
+               
+            </div>
+ </div>
+
+	
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      
+   </body>
+</html>

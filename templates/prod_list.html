@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+
+<!--add new product block-->
+<div class="modal fade" id="add_new_product" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center"" id="exampleModalLongTitle"><strong>Add New Product</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  <form   class="form-" method="POST" action="{% url 'inventory_mgmt:prod_new' %}">
+      <div class="modal-body">
+        
+		 {% csrf_token %}
+               <div class="form-group">
+			   <input class="form-control mb-2 mr-sm-2"  placeholder="Enter Product Name" type="text" name="prod_title" required>
+				</div>
+               <div class="form-group">
+			   <input class="form-control mb-2 mr-sm-2"  placeholder="Enter Product Quantity" type="number" name="quantity" required>
+				</div>
+                
+		
+      </div>
+      <div class="modal-footer center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+        <button type="submit" class="btn btn-primary">Add New Product</button>
+      </div>
+	  </form>
+    </div>
+  </div>
+</div>  
+
+
+<div class="table-responsive">          
+  <table  class="table table-bordered table-hover table-condensed table-striped table-dark">
+
+    <thead>
+
+    <tr>
+        <th>No</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Action</th>
+        
+
+    </tr>
+    </thead>
+
+
+<tbody>
+    {% for product in prod_list %}
+
+        <tr>
+
+            <td >{{ forloop.counter }}</td>
+			
+            <td >{{product.prod_title}}</td>
+            <td >{{product.quantity}}</td>
+			
+			
+			<td class="inline">
+			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_{{product.pk}}" ><span class="glyphicon glyphicon-import" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#remove_{{product.pk}}" ><span class="glyphicon glyphicon-export" aria-hidden="true"></span></button>
+            
+			
+			
+			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_{{product.pk}}" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+			</td>
+
+<!--add block-->
+<div class="modal fade" id="add_{{product.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Update Quatity for <span style="color:blue;" ><strong>{{product.prod_title}}</strong></span> (current Quantity is <span style="color:red;" ><strong>{{product.quantity}}</strong></span>)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  <form   class="form-inline" method="POST"  action="{% url 'inventory_mgmt:prod_add' pk=product.pk %}">
+      <div class="modal-body">
+        
+		 {% csrf_token %}
+			   
+
+			   <input class="form-control mb-2 mr-sm-2"  placeholder="Enter Quantity to Add" type="number" name="prod-quantity" required>
+				  
+			  
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+        <button type="submit" class="btn btn-success">Add</button>
+      </div>
+	  </form>
+    </div>
+  </div>
+</div>
+
+<!--remove block-->
+<div class="modal fade" id="remove_{{product.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center"" id="exampleModalLongTitle">Update Quatity for <span style="color:blue;" ><strong>{{product.med_title}}</strong></span> (current Quantity is <span style="color:red;" ><strong>{{product.quantity}}</strong></span>)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  <form   class="form-inline" method="POST"  action="{% url 'inventory_mgmt:prod_remove' pk=product.pk %}">
+      <div class="modal-body">
+        
+		 {% csrf_token %}
+			   
+
+			   <input class="form-control mb-2 mr-sm-2"  placeholder="Enter Quantity to Remove" type="number" name="prod-quantity" required>
+				  
+			  
+                
+		
+      </div>
+      <div class="modal-footer center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+        <button type="submit" class="btn btn-warning">remove</button>
+      </div>
+	  </form>
+    </div>
+  </div>
+</div>
+<!--delete block-->
+<div class="modal fade" id="delete_{{product.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center"" id="exampleModalLongTitle">Delete <span style="color:red;" ><strong>{{product.prod_title}} </strong></span>? </h3>
+        <h5 class="modal-title text-center"" id="exampleModalLongTitle">Are You Sure,You want to delete <span style="color:red;" ><strong>{{product.prod_title}} ({{product.quantity}})</strong></span> </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	  <form   class="form-inline" method="POST"  action="{% url 'inventory_mgmt:prod_delete' pk=product.pk %}">
+      
+        
+		 {% csrf_token %}
+			   
+
+			   
+			  
+                
+		
+      
+      <div class="modal-footer center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+        <button type="submit" class="btn btn-danger">Delete ({{product.prod_title}})</button>
+      </div>
+	  </form>
+    </div>
+  </div>
+</div>
+
+			
+        </tr>
+
+    {% endfor %}
+    </tbody>
+
+</table>
+
+</div>
+
+   </div>
+ 
+    
+ 
+{% endblock %}
